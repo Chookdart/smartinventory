@@ -1,0 +1,316 @@
+/* --- Global Variables and Resets (Matching Dashboard) --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    /* Color Palette */
+    --primary-color: #2c3e50; /* Dark Blue/Charcoal for text and primary elements */
+    --secondary-color: #3498db; /* Bright Blue for accents and links */
+    --accent-color: #e74c3c; /* Red for alerts/delete buttons */
+    --success-color: #27ae60; /* Green for adds/success */
+    --background-color: #ecf0f1; /* Light Gray for main background */
+    --card-background: #ffffff; /* White for content cards */
+    --text-light: #f4f6f7;
+    --text-dark: #2c3e50;
+
+    /* Spacing */
+    --padding-sm: 10px;
+    --padding-md: 20px;
+    --padding-lg: 40px;
+    
+    /* Shadows */
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex; 
+    min-height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-dark);
+}
+
+/* --- Navigation Bar (Sidebar) --- */
+
+
+.nav-left {
+    width: 420px;
+    height: 100vh;
+    background-color: var(--primary-color);
+    padding: 120px 32px 64px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    
+    /* Keep these for vertical layout/alignment */
+    display: flex; 
+    flex-direction: column;
+    
+    /* The text-align on the parent only helps inline items directly inside */
+    text-align: center; 
+}
+
+.nav-left .title {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 var(--padding-md) var(--padding-lg);
+    line-height: 1.2;
+    font-size: 50px;
+}
+
+.nav-left .second-line {
+    font-size: 0.9rem;
+    font-weight: 400;
+    opacity: 0.8;
+     font-size: 50px;
+}
+
+.nav-left ul {
+    list-style: none;
+    padding-top: var(--padding-md);
+    
+    /* --- FIX 1: Limit UL width and center it horizontally --- */
+    width: 80%; /* You can adjust this percentage */
+    margin: 0 auto;
+}
+
+.nav-left ul li a {
+    display: block;
+    padding: var(--padding-sm) var(--padding-md);
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: background-color 0.3s, color 0.3s;
+    border-left: 3px solid transparent; 
+    
+    /* --- FIX 2: Center the link text itself --- */
+    text-align: center; 
+}
+
+.nav-left ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+}
+
+/* Optional: To highlight the current active link (assuming homepage.php is the current page) */
+.nav-left ul li:first-child a {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-left: 3px solid var(--secondary-color);
+    font-weight: 600;
+}
+
+/* --- Main Content Layout --- */
+/* --- Main Content Layout --- */
+
+/* The main content area takes up the remaining space */
+body > .page-header, body > .selection, body > .modal, body > script {
+    flex-grow: 1;
+    min-width: 0; /* Allows content to shrink if needed */
+}
+
+/* --- Page Header --- */
+
+.page-header {
+    padding: var(--padding-lg);
+    background-color: var(--background-color);
+    border-bottom: 1px solid #dce1e6;
+    margin-left: -20px; /* Pull it back to the edge of the content area */
+}
+
+.page-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* --- Main Content Area (Table Container) --- */
+
+.selection {
+    padding: var(--padding-md) var(--padding-lg);
+}
+
+.db {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    padding: var(--padding-md);
+    overflow-x: auto; /* Ensures table is scrollable on small screens */
+}
+
+/* --- Data Table Styling --- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--padding-md);
+}
+
+table th, table td {
+    padding: var(--padding-sm) 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+
+table th {
+    background-color: #f8f9fa; /* Lighter header background */
+    color: var(--primary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    border-top: 1px solid #eee;
+}
+
+table tr:nth-child(even) {
+    background-color: #fbfbfb; /* Zebra striping */
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* --- Action Buttons (Table and Add User) --- */
+
+/* General button styling */
+.editBtn, .deleteBtn, .add, .modal-content button[type="submit"] {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+}
+
+/* Edit Button */
+.editBtn {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+}
+.editBtn:hover {
+    background-color: #2980b9;
+}
+
+/* Delete Button */
+.deleteBtn {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+}
+.deleteBtn:hover {
+    background-color: #c0392b;
+}
+
+/* Add Users Button (Bottom of table) */
+.add {
+    background-color: var(--success-color);
+    color: var(--text-light);
+    padding: 10px 20px;
+}
+.add:hover {
+    background-color: #2ecc71;
+}
+
+/* --- Modal Styling (Edit User) --- */
+
+.modal {
+    /* Hidden by default, centered via JS/Flexbox */
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.6); 
+    
+    /* Centering with Flexbox */
+    align-items: center; 
+    justify-content: center; 
+}
+
+/* Re-enable flex when JS shows the modal */
+.modal[style*="block"] {
+    display: flex !important;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    padding: var(--padding-lg);
+    border-radius: 10px;
+    width: 90%; 
+    max-width: 450px; 
+    box-shadow: var(--shadow-hover);
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Modal Form Styling */
+
+.modal-content form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: var(--padding-sm);
+    color: var(--primary-color);
+}
+
+.modal-content form input[type="text"],
+.modal-content form input[type="hidden"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: var(--padding-sm);
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    font-size: 1rem;
+}
+
+.modal-content button[type="submit"] {
+    width: 100%;
+    background-color: var(--success-color);
+    color: var(--text-light);
+    padding: 12px;
+    margin-top: 20px;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: #2ecc71;
+}
+
+
+.close {
+    color: #aaa;
+    float: none; 
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}

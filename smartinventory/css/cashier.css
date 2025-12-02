@@ -1,0 +1,340 @@
+/* --- Global Variables and Resets --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Inter:wght@400;600;700;900&display=swap');
+
+:root {
+    /* Color Palette */
+    --bg-color: #F8F8F8; /* Light gray background */
+    --card-bg: #FFFFFF; /* White for main content areas */
+    --header-bg: #E0E0E0; /* Lighter gray for total box background */
+    --text-dark: #333333; /* Dark text for most elements */
+    --text-light: #FFFFFF; /* White text on dark buttons */
+    --accent-purple: #8B5CF6; /* For focus states, input borders */
+    --button-dark: #2C2C2C; /* Dark buttons for Scan/Stop Scan */
+    --button-action: #4CAF50; /* Green for plus/add */
+    --button-danger: #F44336; /* Red for minus/delete */
+    --border-light: #EEEEEE; /* Light borders for table, lines */
+
+    /* Typography */
+    --font-heading: 'Inter', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+    
+    /* Spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 32px;
+    
+    /* Shadows */
+    --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-heading);
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top initially */
+    min-height: 100vh;
+    padding: var(--spacing-lg);
+    color: var(--text-dark);
+}
+
+/* --- Cashier Wrapper (Main Application Container) --- */
+.cashier-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    max-width: 1000px; /* Adjusted max width to fit new layout */
+    background-color: var(--card-bg);
+    border-radius: var(--spacing-sm);
+    box-shadow: var(--shadow-medium);
+    padding: var(--spacing-lg);
+}
+
+/* --- Top Header Section --- */
+.cashier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: var(--spacing-md); /* Gap between elements */
+}
+
+.button-group {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.scan-btn {
+    background-color: var(--button-dark);
+    color: var(--text-light);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--spacing-xs);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-transform: uppercase;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.scan-btn:hover {
+    background-color: #555;
+}
+
+#bigTotal {
+    background-color: var(--header-bg);
+    color: var(--button-dark);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--spacing-xs);
+    font-size: 2.5rem; /* Larger total */
+    font-weight: 900;
+    text-align: right;
+    min-width: 200px; /* Ensure total box has minimum width */
+    flex-grow: 1; /* Allow it to grow if space available */
+}
+
+/* --- Main Content Area (Input, Scanner, Table, Summary) --- */
+.main-transaction-area {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.input-scanner-area {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-bottom: var(--spacing-md); /* Space below this section */
+    border-bottom: 1px solid var(--border-light);
+}
+
+.input-code {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 2px solid var(--accent-purple); /* Purple border for focus/prominence */
+    border-radius: var(--spacing-xs);
+    font-size: 1rem;
+    font-family: var(--font-mono); /* Monospace for code input */
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.input-code::placeholder {
+    color: #999;
+}
+
+.input-code:focus {
+    border-color: #6C2BD9; /* Darker purple on focus */
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+}
+
+/* Scanner Reader Styling */
+.reader-wrapper {
+    background-color: #EEE; /* Light background for the scanner area */
+    border-radius: var(--spacing-xs);
+    min-height: 50px; /* Placeholder height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Important to keep the camera feed contained */
+    position: relative;
+    /* This will be the space for the actual scanner feed */
+}
+
+#reader {
+    width: 25%;
+    height: 25%;
+    object-fit: cover; /* Ensure video feed covers the area */
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+/* When the scanner is active, the video element will take over #reader */
+
+
+/* --- Items Table --- */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--spacing-lg);
+}
+
+.items-table th, .items-table td {
+    padding: var(--spacing-sm) 0;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.9rem;
+}
+
+.items-table th {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.items-table td:nth-child(1) { width: 40%; } /* Product name */
+.items-table td:nth-child(2) { width: 15%; text-align: left; } /* Price */
+.items-table td:nth-child(3) { width: 15%; text-align: left; } /* Quantity */
+.items-table td:nth-child(4) { width: 15%; text-align: left; } /* Subtotal */
+.items-table td:nth-child(5) { width: 30%; text-align: right; margin-left: 80px; } /* Actions */
+
+
+.items-table tr:last-child td {
+    border-bottom: none; /* No border for the last row */
+}
+
+/* Table Action Buttons */
+.cart-actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: var(--spacing-xs);
+
+}
+
+.btn-plus, .btn-minus, .btn-delete {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-plus { background-color: var(--button-action); }
+.btn-plus:hover { background-color: #43A047; }
+
+.btn-minus { background-color: #FFB300; } /* Amber for minus */
+.btn-minus:hover { background-color: #FF8F00; }
+
+.btn-delete { background-color: var(--button-danger); }
+.btn-delete:hover { background-color: #E53935; }
+
+
+/* --- Summary Box --- */
+.summary-box {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--button-dark); /* Stronger separator */
+    text-align: right;
+    font-size: 0.95rem;
+}
+
+.summary-box .line {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-weight: 600;
+}
+
+.summary-box .line span:first-child {
+    color: #666;
+}
+
+/* Total line in summary */
+.summary-box .line:last-of-type { /* Target the last line which is the total */
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--button-dark);
+    margin-top: var(--spacing-sm);
+}
+
+.summary-box .line:last-of-type span:first-child {
+    color: var(--button-dark);
+}
+
+/* --- Checkout Button --- */
+.checkout-btn {
+    width: 100%;
+    background-color: var(--button-dark); /* Dark button for checkout */
+    color: var(--text-light);
+    padding: var(--spacing-md);
+    border: none;
+    border-radius: var(--spacing-xs);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: var(--spacing-lg);
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-transform: uppercase;
+}
+
+.checkout-btn:hover {
+    background-color: #555;
+}
+
+/* --- Logout Button --- */
+.logout-btn {
+    width: 100%;
+    background-color: #E0E0E0; /* Light gray for logout */
+    color: #666;
+    padding: var(--spacing-sm);
+    border: none;
+    border-radius: var(--spacing-xs);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: var(--spacing-md);
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-transform: uppercase;
+}
+
+.logout-btn:hover {
+    background-color: #D0D0D0;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .cashier-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .button-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #bigTotal {
+        width: 100%;
+        text-align: center;
+    }
+
+    .items-table th, .items-table td {
+        padding: var(--spacing-xs) 0;
+        font-size: 0.85rem;
+    }
+
+    .btn-plus, .btn-minus, .btn-delete {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cashier-wrapper {
+        padding: var(--spacing-md);
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    .scan-btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,208 @@
+/* --- Global Variables and Resets (Matching Dashboard Palette) --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+
+:root {
+    /* Color Palette from Dashboard/Login */
+    --primary-color: #2c3e50; /* Dark Blue/Charcoal */
+    --secondary-color: #3498db; /* Bright Blue for accents/hover */
+    --background-color: #ecf0f1; /* Light Gray for main background */
+    --form-background: #ffffff; /* White for the form panel */
+    --text-dark: #2c3e50;
+    --text-light: #f4f6f7;
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically */
+    min-height: 100vh;
+    padding: 20px;
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* --- Decorative Background Text (SMART) --- */
+body::before {
+    content: "SMART"; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-10deg); 
+    font-size: 15rem; 
+    font-weight: 900;
+    color: rgba(44, 62, 80, 0.05); 
+    z-index: 0; 
+    pointer-events: none; 
+}
+
+/* --- Main Card Wrapper (for centering and styling) --- */
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1; 
+}
+
+/* Renaming from .form-container to .form-card for consistency */
+.form-card { 
+    width: 90%;
+    max-width: 450px; 
+    background-color: var(--form-background);
+    padding: 40px; 
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+    text-align: center;
+    position: relative;
+    z-index: 2; 
+}
+
+/* --- Header & Text --- */
+
+.header {
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.header p {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+}
+
+/* --- Input Fields & Selects (Floating Label Pattern) --- */
+
+.input-box {
+    position: relative;
+    margin-bottom: 30px; 
+    text-align: left; 
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px 15px; 
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: transparent;
+    -webkit-appearance: none; 
+    appearance: none;
+}
+
+/* Specific styling for the select box arrow */
+.select-box {
+    position: relative;
+}
+.select-box::after {
+    content: '\25BC'; /* Unicode down arrow */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #999;
+    font-size: 0.8rem;
+}
+
+.input-field:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 1px var(--secondary-color);
+}
+
+/* Label/Placeholder styling */
+.input-box .label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+    transition: 0.2s ease all;
+}
+
+/* Move label up when focused or has content (for input fields) */
+.input-field:focus ~ .label,
+.input-field:valid ~ .label,
+.input-field:not(:placeholder-shown) ~ .label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    padding: 0 5px;
+    color: var(--secondary-color);
+    background-color: var(--form-background);
+    z-index: 10;
+}
+
+/* Hack for Select Fields */
+.select-box .select-label-hack {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    padding: 0 5px;
+    color: var(--secondary-color);
+    background-color: var(--form-background);
+    z-index: 10;
+}
+
+/* --- Submit Button --- */
+
+.btn-submit {
+    width: 100%;
+    background-color: var(--primary-color); 
+    color: var(--text-light);
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #3b5268;
+}
+
+.btn-submit:active {
+    transform: scale(0.98);
+}
+
+.btn-submit i {
+    margin-right: 8px;
+}
+
+/* --- Back Link --- */
+.back-link {
+    margin-top: 20px;
+}
+
+.back-link a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.back-link a:hover {
+    color: var(--primary-color);
+}

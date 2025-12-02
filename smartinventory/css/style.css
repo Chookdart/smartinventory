@@ -1,0 +1,355 @@
+/* --- Global Resets & Typography --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    /* Color Palette */
+    --primary-color: #2c3e50; /* Dark Blue/Charcoal for text and primary elements */
+    --secondary-color: #3498db; /* Bright Blue for accents and links */
+    --accent-color: #e74c3c; /* Red for alerts/low-stock */
+    --background-color: #ecf0f1; /* Light Gray for main background */
+    --card-background: #ffffff; /* White for content cards */
+    --text-light: #f4f6f7;
+    --text-dark: #2c3e50;
+
+    /*
+    RED
+    no hover #e74c3c;
+    with hover  #c0392b;
+
+    GREEN
+    no hover #27ae60;
+    with hover #2ecc71;
+    */
+    /* Spacing */
+    --padding-sm: 10px;
+    --padding-md: 20px;
+    --padding-lg: 40px;
+    
+    /* Shadows */
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex; /* Enables flex layout for the main body */
+    min-height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-dark);
+}
+
+/* --- Navigation Bar (Sidebar) --- */
+
+.nav-left {
+    width: 420px;
+    height: 100vh;
+    background-color: var(--primary-color);
+    padding: 120px 32px 64px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    
+    /* Keep these for vertical layout/alignment */
+    display: flex; 
+    flex-direction: column;
+    
+    /* The text-align on the parent only helps inline items directly inside */
+    text-align: center; 
+}
+
+.nav-left .title {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 var(--padding-md) var(--padding-lg);
+    line-height: 1.2;
+    font-size: 50px;
+}
+
+.nav-left .second-line {
+    font-size: 0.9rem;
+    font-weight: 400;
+    opacity: 0.8;
+     font-size: 50px;
+}
+
+.nav-left ul {
+    list-style: none;
+    padding-top: var(--padding-md);
+    
+    /* --- FIX 1: Limit UL width and center it horizontally --- */
+    width: 80%; /* You can adjust this percentage */
+    margin: 0 auto;
+}
+
+.nav-left ul li a {
+    display: block;
+    padding: var(--padding-sm) var(--padding-md);
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: background-color 0.3s, color 0.3s;
+    border-left: 3px solid transparent; 
+    
+    /* --- FIX 2: Center the link text itself --- */
+    text-align: center; 
+}
+
+.nav-left ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+}
+
+/* Optional: To highlight the current active link (assuming homepage.php is the current page) */
+.nav-left ul li:first-child a {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-left: 3px solid var(--secondary-color);
+    font-weight: 600;
+}
+
+/* --- Main Content Layout --- */
+
+.hero {
+    /* The hero section only contains the navigation, so it acts as the sidebar container */
+    /* No additional styling needed here beyond what's on .nav-left */
+}
+
+/* New container for the rest of the dashboard content */
+/* Everything after the sidebar will take up the remaining space */
+body > .page-header, body > .selection, body > script {
+    flex-grow: 1;
+    padding-left: 20px; /* Offset the content slightly */
+}
+
+/* --- Dashboard Header --- */
+
+.page-header {
+    padding: var(--padding-lg);
+    background-color: var(--background-color);
+    border-bottom: 1px solid #dce1e6;
+    margin-left: -20px; /* Pull it back to the edge of the content area */
+}
+
+.page-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* --- Dashboard Cards Section --- */
+
+.selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: var(--padding-md);
+    padding: var(--padding-md) var(--padding-lg);
+}
+
+.selection > div {
+    /* Styling for all wrappers (wrapper, wrapper2, wrapper3, wrapper4) */
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: var(--padding-md);
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    height: 100%; /* Ensure all cards are the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.selection > div:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.selection h1 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.selection p {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-top: auto; /* Push the number to the bottom/center */
+}
+
+/* Card Specific Styling */
+
+/* Total Products - Default Blue */
+.wrapper p { 
+    color: var(--secondary-color); 
+}
+
+/* Total Suppliers - A different accent color */
+.wrapper2 p { 
+    color: #27ae60; /* Green */
+}
+
+/* Low-Stock Alerts - Danger Red */
+.wrapper3 p { 
+    color: var(--accent-color); /* Red */
+}
+
+/* Recently Added - Warm/Informational Color */
+.wrapper4 p { 
+    color: #f39c12; /* Orange */
+}
+
+/* --- Buttons --- */
+
+button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: var(--padding-sm);
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* The low-stock view button should be red to match the alert */
+.wrapper3 button {
+    background-color: var(--secondary-color);
+}
+.wrapper3 button:hover {
+    background-color:  #2980b9;
+}
+
+.deleteBtn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.deleteBtn:hover{
+    background-color: #c0392b;
+    color: white;
+}
+
+.add {
+    background-color: #27ae60;
+    color: white;
+}
+
+.add:hover{
+    background-color: #2ecc71;
+    color: white;
+}
+
+/* --- Modal Styling (Important for JS functionality) --- */
+/* Your JS uses .modal, .modal-content, .close, .recentClose */
+
+/* --- Enhanced Modal Styling --- */
+
+.modal {
+    display: none; /* Hidden by default (handled by JS) */
+    position: fixed; /* Crucial: Positioned relative to the viewport */
+    z-index: 1000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width of the viewport */
+    height: 100%; /* Full height of the viewport */
+    background-color: rgba(0,0,0,0.6); /* Darker overlay for better focus */
+    
+    /* ADDED: Use Flexbox to perfectly center the content */
+    display: flex; 
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+/* When the modal is visible, the JS sets display: block, 
+   so we override it to re-enable the flex properties for centering */
+/* --- Updated Modal Styling (To Fix Auto-Showing) --- */
+
+.modal {
+    /* DEFAULT STATE: Use flex, but hide it completely */
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.6); 
+    
+    /* Centering styles (used when JS sets display to 'block') */
+    align-items: center; 
+    justify-content: center; 
+}
+
+/* This is the crucial part: When your JS sets the style to 'block', 
+   we override it to use 'flex' to maintain centering. */
+.modal[style*="block"] {
+    display: flex !important;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    padding: var(--padding-md);
+    border-radius: 10px;
+    width: 90%; 
+    max-width: 1000px; 
+    box-shadow: var(--shadow-hover);
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Rest of the content and close button styles remain the same */
+
+.modal-content h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+
+.close, .recentClose {
+    color: #aaa;
+    float: none;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    line-height: 1;
+}
+
+.close:hover,
+.close:focus,
+.recentClose:hover,
+.recentClose:focus {
+    color: var(--accent-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
